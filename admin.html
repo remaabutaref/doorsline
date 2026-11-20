@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ניהול – DOORS LINE</title>
+<style>
+body{margin:0;font-family:Heebo,Arial,sans-serif;background:#efebe4;color:#17191c;line-height:1.5}
+.w{max-width:960px;margin:0 auto;padding:16px 16px 90px}
+h1{font-size:26px;margin:8px 0}h2{font-size:20px;margin:0 0 10px}
+.box{background:#f8f6f1;border:1px solid #d6d0c5;border-radius:6px;padding:14px;margin:14px 0}
+input,select,textarea{font:inherit;padding:8px 10px;border:1px solid #d6d0c5;border-radius:4px;background:#fff;max-width:100%}
+input[type=text],input:not([type]),input[type=password],textarea{width:100%;box-sizing:border-box}
+button,.b{font:inherit;cursor:pointer;background:#17191c;color:#fff;border:0;border-radius:4px;padding:9px 16px;display:inline-block}
+.b2{background:transparent;color:#17191c;border:1px solid #17191c}.x{background:#b5382c}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.c{background:#fff;border:1px solid #d6d0c5;border-radius:4px;padding:8px;display:grid;gap:6px}
+.c img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:3px;background:#ddd}
+.c .sq{height:70px;border-radius:3px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.tabs button[aria-pressed=true]{background:#9a7638}
+label{display:grid;gap:3px;font-size:14px;color:#66645f}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:10px}
+#bar{position:fixed;inset-inline:0;bottom:0;background:#17191c;color:#fff;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+#bar button{background:#9a7638}
+</style></head><body><div class="w" id="app">טוען...</div>
+<div id="bar"><span id="st">לא מחובר</span><button onclick="saveAll()">שמירה ופרסום</button></div>
+<script>
+var REPO="remaabutaref/doorsline",BR="main",D=null,SHA=null,sec="entry",T=sessionStorage.getItem("gh")||"",AUTH=null,NEED=null,PV={};
+var SECS=[["entry","תמונות: דלתות כניסה"],["interior","תמונות: דלתות פנים"],["handles","תמונות: ידיות"],["cladding","תמונות: חיפויים"]];
+var CL=[["hpl","HPL"],["hplg","HPLG"],["porc","פורצלן"],["alu","אלומיניום"],["powder","צבע תנור"]];
+var TX=[[".hero h1","כותרת ראשית","בנו את דלת החלומות שלכם"],[".hero p","טקסט מתחת לכותרת","דלתות כניסה ודלתות פנים, בכל מערכת ובכל חיפוי. כל דלת מיוצרת בהתאמה אישית, ובסוף מקבלים מפרט להורדה, להדפסה ולשיתוף."],
+["#usp span:nth-child(1)","תג 1","ייצור לפי מידה"],["#usp span:nth-child(2)","תג 2","התקנה מקצועית"],["#usp span:nth-child(3)","תג 3","אחריות על העבודה"],["#usp span:nth-child(4)","תג 4","פתוחים כל יום 11:00–19:00"],
+[".why div:nth-child(1) h3","יתרון 1: כותרת","ייצור לפי מידה"],[".why div:nth-child(1) p","יתרון 1: טקסט","כל דלת מיוצרת בדיוק לפתח שלכם."],
+[".why div:nth-child(2) h3","יתרון 2: כותרת","חומרים לכל חלל"],[".why div:nth-child(2) p","יתרון 2: טקסט","חיפויי HPL, HPLG איטלקי, פורצלן שייש ואלומיניום."],
+[".why div:nth-child(3) h3","יתרון 3: כותרת","התקנה מקצועית"],[".why div:nth-child(3) p","יתרון 3: טקסט","מדידה, ייעוץ והתקנה בידי צוות מנוסה, עם אחריות."],
+[".csub","משפט בכותרת יצירת קשר","נשמח לעזור בבחירת הדלת, בהתאמה אישית ובקביעת ביקור מדידה."],[".fine","שורה קטנה בתחתית","DOORS LINE · הצבעים והמידות בתצוגה להמחשה בלבד. הצעת מחיר סופית לאחר מדידה בשטח."]];
+function esc(t){return String(t==null?"":t).replace(/[&<>"']/g,function(m){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]})}
+function enc(s){return btoa(unescape(encodeURIComponent(s)))}function dec(s){return decodeURIComponent(escape(atob(s)))}
+function say(m){document.getElementById("st").textContent=m}
+function api(p,o){o=o||{};o.headers={Authorization:"Bearer "+T,Accept:"application/vnd.github+json"};
+ return fetch("https://api.github.com/repos/"+REPO+"/contents/"+p+(o.method?"":"?ref="+BR+"&t="+Date.now()),o).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.message||r.status);return j})})}
+function put(p,b64,sha,msg){return api(p,{method:"PUT",body:JSON.stringify({message:msg,content:b64,branch:BR,sha:sha||undefined})})}
+function norm(){D=D||{};D.gallery=D.gallery||{};["entry","interior","handles","cladding"].forEach(function(k){D.gallery[k]=D.gallery[k]||[]});D.colors=D.colors||[];D.cladimg=D.cladimg||{};D.cfg=D.cfg||{};D.texts=D.texts||{}}
+function load(){if(!T){D=null;gate();return}say("טוען...");
+ api("content.json").then(function(j){SHA=j.sha;D=JSON.parse(dec(j.content));norm();say("מחובר");draw()},function(e){if(/Not Found/i.test(e.message)){D={};SHA=null;norm();say("קובץ חדש (יווצר בשמירה)");draw()}else{say("שגיאה: "+e.message);T="";sessionStorage.removeItem("gh");D=null;gate()}})}
+function saveAll(){if(!D)return;say("שומר...");
+ api("content.json").catch(function(){return{}}).then(function(j){return put("content.json",enc(JSON.stringify(D)),j.sha,"עדכון תוכן מהניהול")}).then(function(r){SHA=r.content.sha;say("נשמר. האתר יתעדכן בעוד כדקה")},function(e){say("השמירה נכשלה: "+e.message)})}
+function shrink(f,max){return new Promise(function(res,rej){var fr=new FileReader();fr.onload=function(){var im=new Image();im.onload=function(){var k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);res(c.toDataURL("image/jpeg",.85))};im.onerror=rej;im.src=fr.result};fr.onerror=rej;fr.readAsDataURL(f)})}
+function upload(f,max){return shrink(f,max).then(function(u){var p="images/"+Date.now().toString(36)+Math.random().toString(36).slice(2,6)+".jpg";PV[p]=u;return put(p,u.split(",")[1],null,"תמונה חדשה").then(function(){return p})})}
+function src(u){return PV[u]||u}
+function b64(u){return btoa(String.fromCharCode.apply(null,u))}function ub(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0)})}
+function dk(pin,salt){return crypto.subtle.importKey("raw",new TextEncoder().encode(pin),"PBKDF2",false,["deriveKey"]).then(function(m){return crypto.subtle.deriveKey({name:"PBKDF2",salt:salt,iterations:300000,hash:"SHA-256"},m,{name:"AES-GCM",length:256},false,["encrypt","decrypt"])})}
+function gate(){var a=document.getElementById("app");say("לא מחובר");
+ fetch("auth.json?"+Date.now()).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){AUTH=j;a.innerHTML='<h1>ניהול האתר</h1><div class="box"><h2>כניסה</h2><label>קוד בן 6 ספרות<input type="password" id="pin" inputmode="numeric" maxlength="6" onkeydown="if(event.key===\'Enter\')unlock()"></label><p><button onclick="unlock()">כניסה</button></p></div>'},function(){AUTH=null;
+  a.innerHTML='<h1>ניהול האתר</h1><div class="box"><h2>הגדרה ראשונה (פעם אחת בלבד)</h2><p>הדביקו את הטוקן של גיטהאב ובחרו קוד בן 6 ספרות. מעכשיו תיכנסו רק עם הקוד.</p><label>טוקן גיטהאב<input type="password" id="tk"></label><label>קוד חדש (6 ספרות)<input id="np" inputmode="numeric" maxlength="6"></label><p><button onclick="setup()">הגדרה</button></p></div>'})}
+function unlock(){var pin=document.getElementById("pin").value;say("בודק...");
+ dk(pin,ub(AUTH.s)).then(function(k){return crypto.subtle.decrypt({name:"AES-GCM",iv:ub(AUTH.i)},k,ub(AUTH.d))}).then(function(b){T=new TextDecoder().decode(b);sessionStorage.setItem("gh",T);load()},function(){say("קוד שגוי")})}
+function setup(){var tk=document.getElementById("tk").value.trim(),np=document.getElementById("np").value.trim();
+ if(!/^\d{6}$/.test(np)){alert("הקוד חייב להיות 6 ספרות");return}T=tk;say("מגדיר...");
+ var salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12));
+ dk(np,salt).then(function(k){return crypto.subtle.encrypt({name:"AES-GCM",iv:iv},k,new TextEncoder().encode(tk))}).then(function(c){
+  var out=JSON.stringify({s:b64(salt),i:b64(iv),d:b64(new Uint8Array(c))});
+  return api("auth.json").catch(function(){return{}}).then(function(j){return put("auth.json",enc(out),j.sha,"הגדרת קוד כניסה")})}).then(function(){sessionStorage.setItem("gh",T);say("הוגדר");load()},function(e){T="";say("שגיאה: "+e.message)})}
+function pick(sel){return sel}
+function addPhotos(inp){var fs=[].slice.call(inp.files),n=0;say("מעלה "+fs.length+" תמונות...");
+ fs.reduce(function(p,f){return p.then(function(){return upload(f,1600).then(function(path){D.gallery[sec].push({id:path,cap:"",u:path});n++},function(e){say("שגיאה: "+(e.message||e))})})},Promise.resolve()).then(function(){say("הועלו "+n+" תמונות. לחצו שמירה ופרסום");draw()})}
+function mv(i,d){var a=D.gallery[sec],j=i+d;if(j<0||j>=a.length)return;var t=a[i];a[i]=a[j];a[j]=t;draw()}
+function addColor(){var g=function(i){return document.getElementById(i)},f=g("cf").files[0],base={id:"c"+Date.now().toString(36),cl:g("ccl").value,name:g("cnm").value.trim(),code:g("ckd").value.trim(),hex:g("chx").value,img:""};
+ if(!base.name&&!base.code){alert("הזינו שם או קוד");return}
+ if(!f){D.colors.push(base);draw();return}say("מעלה...");upload(f,500).then(function(p){base.img=p;D.colors.push(base);draw();say("נוסף. לחצו שמירה ופרסום")},function(e){say("שגיאה: "+e.message)})}
+function cladImg(inp,k){var f=inp.files[0];if(!f)return;say("מעלה...");upload(f,900).then(function(p){D.cladimg[k]={id:p,u:p};draw();say("נוסף. לחצו שמירה ופרסום")},function(e){say("שגיאה: "+e.message)})}
+function draw(){var a=document.getElementById("app"),h='<h1>ניהול האתר</h1>';
+ if(!D){gate();return}
+ h+='<div class="tabs">'+SECS.map(function(s){return'<button class="b" aria-pressed="'+(sec===s[0])+'" onclick="sec=\''+s[0]+'\';draw()">'+s[1]+'</button>'}).join("")+'</div>';
+ var G=D.gallery[sec];
+ h+='<div class="box"><h2>'+SECS.filter(function(s){return s[0]===sec})[0][1]+'</h2><label class="b" style="display:inline-block">📷 הוספת תמונות<input type="file" accept="image/*" multiple hidden onchange="addPhotos(this)"></label><div class="g" style="margin-top:12px">'
+ +G.map(function(g,i){return'<div class="c"><img src="'+esc(src(g.u))+'"><input value="'+esc(g.cap)+'" placeholder="כיתוב" oninput="D.gallery[sec]['+i+'].cap=this.value"><div><button class="b2" onclick="mv('+i+',-1)">→</button> <button class="b2" onclick="mv('+i+',1)">←</button> <button class="x" onclick="D.gallery[sec].splice('+i+',1);draw()">מחיקה</button></div></div>'}).join("")+'</div></div>';
+ if(sec==="cladding"){
+  h+='<div class="box"><h2>תמונה לכל חיפוי</h2><div class="g">'+CL.map(function(c){var im=D.cladimg[c[0]];return'<div class="c"><b>'+c[1]+'</b>'+(im?'<img src="'+esc(src(im.u))+'">':'')+'<label class="b b2">החלפה<input type="file" accept="image/*" hidden onchange="cladImg(this,\''+c[0]+'\')"></label></div>'}).join("")+'</div></div>';
+  h+='<div class="box"><h2>גוונים במלאי</h2><div class="row"><label>חיפוי<select id="ccl">'+CL.map(function(c){return'<option value="'+c[0]+'">'+c[1]+'</option>'}).join("")+'</select></label><label>שם<input id="cnm"></label><label>קוד<input id="ckd"></label><label>צבע<input type="color" id="chx" value="#b99a70"></label><label>תמונת גוון (לא חובה)<input type="file" id="cf" accept="image/*"></label></div><button onclick="addColor()">הוספת גוון</button><div class="g" style="margin-top:12px">'
+  +D.colors.map(function(c,i){return'<div class="c">'+(c.img?'<img src="'+esc(src(c.img))+'">':'<div class="sq" style="background:'+esc(c.hex)+'"></div>')+'<b>'+esc(c.name)+'</b><small>'+esc(c.code)+' · '+esc((CL.filter(function(x){return x[0]===c.cl})[0]||[0,c.cl])[1])+'</small><button class="x" onclick="D.colors.splice('+i+',1);draw()">מחיקה</button></div>'}).join("")+'</div></div>'}
+ h+='<div class="box"><h2>פרטי יצירת קשר</h2><div class="row">'+[["phone","טלפון","054-358-0033"],["wa","וואטסאפ (מספר בינלאומי, בלי +)","972543580033"],["mail","מייל","info@doorsline.co.il"],["addr","כתובת / שעות","רחוב הדוגמה 1 (לעדכון) · פתוחים כל ימות השבוע, 11:00 עד 19:00"]].map(function(f){return'<label>'+f[1]+'<input value="'+esc(D.cfg[f[0]]||f[2])+'" oninput="D.cfg.'+f[0]+'=this.value"></label>'}).join("")+'</div></div>';
+ h+='<div class="box"><h2>טקסטים באתר</h2>'+TX.map(function(t,i){return'<label style="margin-bottom:8px">'+t[1]+'<textarea rows="2" oninput="setTx('+i+',this.value)">'+esc(D.texts[t[0]]||t[2])+'</textarea></label>'}).join("")+'</div>';
+ a.innerHTML=h}
+function setTx(i,v){var t=TX[i];if(v===t[2]||!v.trim())delete D.texts[t[0]];else D.texts[t[0]]=v}
+load();
+</script></body></html>
