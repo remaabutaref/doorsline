@@ -170,7 +170,7 @@ footer .csub{opacity:.75;margin:-8px 0 22px;font-size:17px}
 .kinds h3{color:var(--acc)}
 footer#contact{box-shadow:inset 0 8px 0 var(--acc)}
 .tile .tl{color:color-mix(in srgb,var(--acc) 45%,#fff)}
-</style></head><body><template id="skel">
+.card .pic.mph{padding:0}.card .pic.mph img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}.card h3[contenteditable],.card p[contenteditable]{outline:2px dashed #9a7638;outline-offset:2px}</style></head><body><template id="skel">
 <header class="top"><div class="wrap">
 <a class="logo" href="#top" aria-label="DOORS LINE">
 <svg width="30" height="40" viewBox="0 0 30 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="22" height="36"></rect><path d="M2 2l15 4v32L2 38" stroke="#b8924a"></path><circle cx="20" cy="21" r="1.6" fill="#b8924a" stroke="none"></circle></svg>
@@ -187,7 +187,7 @@ footer#contact{box-shadow:inset 0 8px 0 var(--acc)}
 
 <section class="lab" id="build" aria-label="בניית דלת">
 <div class="stage">
-<div class="view" id="view"></div>
+<div class="view" id="view"></div><div style="padding:10px 16px 0"><button type="button" class="btn alt" id="opn" style="width:100%">▶ איך הדלת נפתחת</button></div>
 <div class="meter"><div class="ring" id="ring"><span id="score">0</span></div><div><small>מד חלומות</small><strong id="dname"></strong></div></div>
 </div>
 <div class="wiz" id="wiz"></div>
@@ -231,10 +231,10 @@ footer#contact{box-shadow:inset 0 8px 0 var(--acc)}
 
 </template><script id="state" type="application/json">{"gallery": {"entry": [], "interior": [], "handles": [], "cladding": []}, "colors": [], "cladimg": {}}</script><script id="app">
 document.body.appendChild(document.getElementById("skel").content.cloneNode(true));
-var ST;try{var xr=new XMLHttpRequest();xr.open("GET","content.json?"+Date.now(),false);xr.send();ST=JSON.parse(xr.responseText)}catch(e){ST=JSON.parse(document.getElementById("state").textContent)}ST.gallery=ST.gallery||{};ST.gallery.entry=ST.gallery.entry||[];ST.gallery.interior=ST.gallery.interior||[];ST.colors=ST.colors||[];ST.cladimg=ST.cladimg||{};ST.gallery.handles=ST.gallery.handles||[];ST.gallery.cladding=ST.gallery.cladding||[];
+var ST;try{var xr=new XMLHttpRequest();xr.open("GET","content.json?"+Date.now(),false);xr.send();ST=JSON.parse(xr.responseText)}catch(e){ST=JSON.parse(document.getElementById("state").textContent)}ST.gallery=ST.gallery||{};ST.gallery.entry=ST.gallery.entry||[];ST.gallery.interior=ST.gallery.interior||[];ST.colors=ST.colors||[];ST.cladimg=ST.cladimg||{};ST.modelimg=ST.modelimg||{};ST.mo=ST.mo||{};ST.gallery.handles=ST.gallery.handles||[];ST.gallery.cladding=ST.gallery.cladding||[];
 var HEAD='<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>DOORS LINE – בנו את דלת החלומות</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;800&family=Heebo:wght@300;400;500;800&display=swap">';
 
-var CFG={phone:"054-358-0033",wa:"972543580033",mail:"info@doorsline.co.il",addr:"רחוב הדוגמה 1 (לעדכון) · פתוחים כל ימות השבוע, 11:00 עד 19:00"};if(ST.cfg)for(var cfk in ST.cfg)if(ST.cfg[cfk])CFG[cfk]=ST.cfg[cfk];if(ST.texts)for(var tsel in ST.texts){var te=document.querySelector(tsel);if(te&&ST.texts[tsel])te.textContent=ST.texts[tsel]}
+var CFG={phone:"054-358-0033",wa:"972543580033",mail:"info@doorsline.co.il",addr:"פתוחים כל ימות השבוע, 11:00 עד 19:00"};if(ST.cfg)for(var cfk in ST.cfg)if(ST.cfg[cfk])CFG[cfk]=ST.cfg[cfk];if(ST.texts)for(var tsel in ST.texts){var te=document.querySelector(tsel);if(te&&ST.texts[tsel])te.textContent=ST.texts[tsel]}
 var $=function(i){return document.getElementById(i)};
 var TYPES=[
 ["regular","רגילה","משקוף וחיפוי קלאסיים"],["zero","קו אפס","משקוף נסתר, הדלת שטוחה עם הקיר"],
@@ -276,13 +276,13 @@ function door(s,o){
  o=o||{};var u=o.id||"d",F=finOf(s),c=F.c,dk=sh(c,-34),lt=sh(c,26);
  var sl=s.type==="slide",W=s.w,H=s.h,k=Math.min(190/(sl?W*1.85:W),318/H),dw=W*k,dh=H*k,fl=372,y=fl-dh;
  var x0=sl?(280-dw*1.85)/2:(280-dw)/2,x=sl?x0+dw*.85:x0,p="",hw=(lum(c)<55||s.mat==="steel"||s.clad==="alu")?"#cfd2d6":"#b8924a";
- p+='<defs><pattern id="gr'+u+'" width="16" height="40" patternUnits="userSpaceOnUse"><path d="M2 0v40M7 0v40M12 0v40" stroke="'+dk+'" stroke-width=".8" opacity=".4"/><path d="M5 6c3 10-3 18 0 30" stroke="'+dk+'" fill="none" opacity=".3"/></pattern>'
- +'<filter id="nz'+u+'"><feTurbulence baseFrequency=".8" numOctaves="2"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0"/></filter>'
+ p+='<defs><pattern id="gr'+u+'" width="16" height="40" patternUnits="userSpaceOnUse"><path d="M2 0v40M7 0v40M12 0v40" stroke="'+dk+'" stroke-width="1" opacity=".62"/><path d="M5 6c3 10-3 18 0 30" stroke="'+dk+'" fill="none" opacity=".45"/></pattern>'
+ +'<filter id="nz'+u+'" x="0" y="0" width="1" height="1"><feTurbulence baseFrequency=".8" numOctaves="2"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0"/></filter>'
  +'<linearGradient id="br'+u+'" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".5" stop-color="#000" stop-opacity=".1"/><stop offset="1" stop-color="#fff" stop-opacity=".18"/></linearGradient>'
- +'<linearGradient id="gl'+u+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d4e6ee"/><stop offset="1" stop-color="#86a8b6"/></linearGradient>'
- +'<filter id="lg'+u+'" x="-300%" y="-5%" width="700%" height="110%"><feGaussianBlur stdDeviation="3"/></filter></defs>';
+ +'<linearGradient id="gl'+u+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eaf5fa"/><stop offset=".5" stop-color="#9cc0cf"/><stop offset="1" stop-color="#5a8394"/></linearGradient>'
+ +'<filter id="lg'+u+'" x="-300%" y="-5%" width="700%" height="110%"><feGaussianBlur stdDeviation="3"/></filter><linearGradient id="sd'+u+'" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".32"/><stop offset=".08" stop-color="#000" stop-opacity=".05"/><stop offset=".45" stop-color="#fff" stop-opacity=".1"/><stop offset=".9" stop-color="#000" stop-opacity=".07"/><stop offset="1" stop-color="#000" stop-opacity=".34"/></linearGradient><linearGradient id="vg'+u+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></linearGradient><filter id="bl'+u+'" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5"/></filter><filter id="ds'+u+'" x="-60%" y="-20%" width="220%" height="140%"><feDropShadow dx="1.6" dy="1.8" stdDeviation="1.2" flood-color="#000" flood-opacity=".55"/></filter></defs>';
  if(o.bg)p+='<rect width="280" height="400" fill="#dcd5c8"/><rect y="'+fl+'" width="280" height="28" fill="#bfb6a5"/>';
- p+='<ellipse cx="140" cy="'+fl+'" rx="'+(dw*.75)+'" ry="5" fill="#000" opacity=".22"/>';
+ p+='<defs><radialGradient id="am'+u+'" cx="50%" cy="38%" r="65%"><stop offset="0" stop-color="#fff6dc" stop-opacity=".4"/><stop offset="1" stop-color="#fff6dc" stop-opacity="0"/></radialGradient></defs><rect x="0" y="0" width="280" height="'+fl+'" fill="url(#am'+u+')"/><rect x="'+(x-6)+'" y="'+(y-6)+'" width="'+(dw+12)+'" height="'+(dh+6)+'" fill="none" stroke="#000" stroke-width="9" opacity=".14" filter="url(#bl'+u+')"/>';p+='<ellipse cx="140" cy="'+fl+'" rx="'+(dw*.75)+'" ry="6" fill="#000" opacity=".38"/>';
  var T=s.type,DW0=dw;if(T==="pocket"){p+='<rect x="'+(x-4)+'" y="'+(y-4)+'" width="'+(dw+8)+'" height="'+(dh+4)+'" fill="#2a2c2f"/>';dw=dw*.55}
  if(T==="conc")p+='<rect x="'+(x-4)+'" y="'+(y-4)+'" width="'+(dw+8)+'" height="'+(dh+4)+'" fill="#26282b"/>';
  if(T==="regular"&&s.cat!=="entry")p+='<rect x="'+(x-9)+'" y="'+(y-9)+'" width="'+(dw+18)+'" height="'+(dh+9)+'" fill="'+sh(c,-14)+'" stroke="'+dk+'" stroke-width=".8"/>';
@@ -291,7 +291,15 @@ function door(s,o){
  if(T==="zero"||T==="pivot")p+='<rect x="'+(x-1.8)+'" y="'+(y-1.8)+'" width="'+(dw+3.6)+'" height="'+(dh+1.8)+'" fill="#000" opacity=".55"/>';
  if(sl){p+='<rect x="'+(x0-6)+'" y="'+(y-14)+'" width="'+(dw*1.85+12)+'" height="6" fill="#7a7c80"/>';
   p+='<rect x="'+x0+'" y="'+y+'" width="'+(dw*.9)+'" height="'+dh+'" fill="'+dk+'"/>'}
- p+='<rect x="'+x+'" y="'+y+'" width="'+dw+'" height="'+dh+'" fill="'+c+'"/>';
+ var OP=o.open||0,tr="";
+ if(OP){if(T==="slide")tr="translate("+(-dw*.9*OP)+" 0)";else if(T==="pocket")tr="translate("+(DW0*.5*OP)+" 0)";else if(T==="fold")tr="translate("+x+" 0) scale("+(1-.5*OP)+" 1) translate("+(-x)+" 0)";else{var cx=T==="pivot"?x+dw/2:x;tr="translate("+cx+" 0) scale("+Math.max(.05,Math.cos(OP*1.25))+" 1) translate("+(-cx)+" 0)"}}
+ if(OP&&T!=="slide"&&T!=="pocket")p+='<defs><linearGradient id="dw'+u+'" x1="0" x2="1"><stop offset="0" stop-color="#14120f"/><stop offset="1" stop-color="#3a342b"/></linearGradient></defs><rect x="'+x+'" y="'+y+'" width="'+dw+'" height="'+dh+'" fill="url(#dw'+u+')"/><rect x="'+x+'" y="'+(fl-6)+'" width="'+dw+'" height="6" fill="#4a4338" opacity=".8"/><path d="M'+x+' '+fl+'L'+(x+dw)+' '+fl+'L'+(x+dw*1.6)+' '+(fl+24)+'L'+(x-dw*.2)+' '+(fl+24)+'Z" fill="#f4e7c8" opacity="'+(OP*.2)+'"/>';
+ if(s.cat==="entry"){p+='<path d="M'+(x+8)+' '+(fl+5)+'L'+(x+dw-8)+' '+(fl+5)+'L'+(x+dw+6)+' '+(fl+19)+'L'+(x-6)+' '+(fl+19)+'Z" fill="#5a5650"/><path d="M'+(x+4)+' '+(fl+10)+'L'+(x+dw-4)+' '+(fl+10)+'M'+(x+1)+' '+(fl+14)+'L'+(x+dw-1)+' '+(fl+14)+'" stroke="#8a847a" stroke-width="1"/>';
+  if(x>62){var px=x-30,rv=function(a){return a+" "+px+" "+fl};p+='<g><animateTransform attributeName="transform" type="rotate" values="'+rv(-1.8)+';'+rv(1.8)+';'+rv(-1.8)+'" dur="5s" repeatCount="indefinite"/><path d="M'+px+' '+(fl-30)+'V'+(fl-62)+'" stroke="#3d6b3d" stroke-width="2"/><ellipse cx="'+px+'" cy="'+(fl-64)+'" rx="6" ry="24" fill="#4b7a4a" transform="rotate(-28 '+px+' '+(fl-40)+')"/><ellipse cx="'+px+'" cy="'+(fl-68)+'" rx="6" ry="27" fill="#3f6e3f"/><ellipse cx="'+px+'" cy="'+(fl-64)+'" rx="6" ry="24" fill="#5a8c55" transform="rotate(28 '+px+' '+(fl-40)+')"/><ellipse cx="'+px+'" cy="'+(fl-56)+'" rx="5" ry="18" fill="#6a9a5f" transform="rotate(-55 '+px+' '+(fl-36)+')"/><ellipse cx="'+px+'" cy="'+(fl-56)+'" rx="5" ry="18" fill="#4b7a4a" transform="rotate(55 '+px+' '+(fl-36)+')"/></g><path d="M'+(px-14)+' '+(fl-30)+'L'+(px+14)+' '+(fl-30)+'L'+(px+10)+' '+fl+'L'+(px-10)+' '+fl+'Z" fill="#8a5a3c"/><rect x="'+(px-15)+'" y="'+(fl-34)+'" width="30" height="6" rx="2" fill="#a06b47"/>'}
+  if(x+dw+38<278){var bx=x+dw+26,by=y+dh*.5;p+='<rect x="'+(bx-9)+'" y="'+(by-40)+'" width="18" height="12" rx="2" fill="#b8924a"/><text x="'+bx+'" y="'+(by-31)+'" font-size="9" font-weight="bold" fill="#3a2c12" text-anchor="middle" font-family="Arial">12</text>';p+='<rect x="'+(bx-7)+'" y="'+(by-12)+'" width="14" height="24" rx="3" fill="#1d1f22" stroke="#0006"/><circle cx="'+bx+'" cy="'+(by-3)+'" r="3.4" fill="#cfd2d6"/><circle cx="'+bx+'" cy="'+(by+6)+'" r="1.6" fill="#e8c98a"><animate attributeName="opacity" values="1;.3;1" dur="2.8s" repeatCount="indefinite"/></circle>'}}
+ else if(T!=="slide"&&T!=="pocket"&&x+dw+40<278)p+='<rect x="'+(x+dw+22)+'" y="'+(y+dh*.52)+'" width="13" height="19" rx="2" fill="#f2efe8" stroke="#0003"/><rect x="'+(x+dw+25.5)+'" y="'+(y+dh*.52+4)+'" width="6" height="11" rx="1.5" fill="#dcd8cf" stroke="#0002"/>';
+ p+='<g id="lf'+u+'"'+(tr?' transform="'+tr+'"':"")+'>';
+ p+='<rect x="'+(x+7)+'" y="'+(y+5)+'" width="'+dw+'" height="'+dh+'" fill="#000" opacity=".3" filter="url(#bl'+u+')"/>';p+='<rect x="'+x+'" y="'+y+'" width="'+dw+'" height="'+dh+'" fill="'+c+'"/>';
  if(F.img&&!o.bg)p+='<pattern id="im'+u+'" patternUnits="userSpaceOnUse" x="'+x+'" y="'+y+'" width="'+dw+'" height="'+dh+'"><image href="'+F.img+'" width="'+dw+'" height="'+dh+'" preserveAspectRatio="xMidYMid slice"/></pattern><rect x="'+x+'" y="'+y+'" width="'+dw+'" height="'+dh+'" fill="url(#im'+u+')"/>';
  if(F.g)p+='<rect x="'+x+'" y="'+y+'" width="'+dw+'" height="'+dh+'" fill="url(#gr'+u+')"/>';
  if(F.z||F.pw)p+='<rect x="'+x+'" y="'+y+'" width="'+dw+'" height="'+dh+'" filter="url(#nz'+u+')" opacity="'+(F.pw?.2:.5)+'"/>';
@@ -299,7 +307,7 @@ function door(s,o){
  if(s.clad==="hplg")p+='<rect x="'+(x+3)+'" y="'+(y+3)+'" width="'+(dw-6)+'" height="'+(dh-6)+'" fill="none" stroke="'+lt+'" stroke-width=".8" opacity=".7"/>';
  if(s.mat==="steel"||s.clad==="alu")p+='<rect x="'+x+'" y="'+y+'" width="'+dw+'" height="'+dh+'" fill="url(#br'+u+')"/>';
  if(s.mat==="alu")p+='<rect x="'+(x+2)+'" y="'+(y+2)+'" width="'+(dw-4)+'" height="'+(dh-4)+'" fill="none" stroke="'+lt+'" stroke-width="2"/>';
- if(s.mat==="poly")p+='<rect x="'+x+'" y="'+y+'" width="'+dw+'" height="'+(dh*.5)+'" fill="#fff" opacity=".07"/>';
+ if(s.mat==="poly")p+='<rect x="'+x+'" y="'+y+'" width="'+dw+'" height="'+(dh*.5)+'" fill="#fff" opacity=".07"/>';p+='<rect x="'+x+'" y="'+y+'" width="'+dw+'" height="'+dh+'" fill="url(#sd'+u+')"/><rect x="'+x+'" y="'+y+'" width="'+dw+'" height="'+dh+'" fill="url(#vg'+u+')"/><path d="M'+(x+.8)+' '+(y+dh)+'V'+(y+.8)+'H'+(x+dw)+'" stroke="#fff" stroke-opacity=".4" fill="none"/><rect x="'+x+'" y="'+y+'" width="'+dw+'" height="'+dh+'" filter="url(#nz'+u+')" opacity=".07"/><path d="M'+(x+dw-.8)+' '+y+'V'+(y+dh)+'" stroke="#000" stroke-opacity=".4" fill="none"/>';if(s.cat==="entry"&&(!s.eng||s.eng==="none")&&T!=="pivot")p+='<rect x="'+(x+dw*.13)+'" y="'+(y+dh*.07)+'" width="'+(dw*.74)+'" height="'+(dh*.86)+'" fill="none" stroke="#000" stroke-opacity=".3"/><rect x="'+(x+dw*.13+1)+'" y="'+(y+dh*.07+1)+'" width="'+(dw*.74)+'" height="'+(dh*.86)+'" fill="none" stroke="#fff" stroke-opacity=".2"/>';
  if(s.eng&&s.eng!=="none"){var e=s.eng,g='<g fill="'+dk+'" opacity=".7" clip-path="url(#cp'+u+')"><clipPath id="cp'+u+'"><rect x="'+x+'" y="'+y+'" width="'+dw+'" height="'+dh+'"/></clipPath>',i;
  if(e==="v"||e==="grid")for(i=1;i<(e==="v"?7:5);i++)g+='<rect x="'+(x+i*dw/(e==="v"?7:5)-.8)+'" y="'+y+'" width="1.6" height="'+dh+'"/>';
  if(e==="h"||e==="grid")for(i=1;i<(e==="h"?11:7);i++)g+='<rect x="'+x+'" y="'+(y+i*dh/(e==="h"?11:7)-.8)+'" width="'+dw+'" height="1.6"/>';
@@ -309,27 +317,28 @@ function door(s,o){
  if(T==="fold"){p+='<rect x="'+(x+dw/2)+'" y="'+y+'" width="'+(dw/2)+'" height="'+dh+'" fill="#000" opacity=".06"/><rect x="'+(x+dw/2-1.2)+'" y="'+y+'" width="2.4" height="'+dh+'" fill="'+dk+'"/><rect x="'+(x-3)+'" y="'+(y-14)+'" width="'+(dw+6)+'" height="6" fill="#7a7c80"/>';for(var fi=0;fi<3;fi++)p+='<rect x="'+(x+dw/2-3)+'" y="'+(y+dh*[.12,.5,.85][fi]-6)+'" width="6" height="12" rx="1" fill="#8b8e92"/>'}
  if(T==="regular")for(var hi=0;hi<3;hi++)p+='<rect x="'+(x-2)+'" y="'+(y+dh*[.12,.5,.85][hi]-6)+'" width="5" height="12" rx="1" fill="#8b8e92"/>';
  if(s.line)p+='<rect x="'+(x+dw*.3)+'" y="'+(y+dh*.06)+'" width="2.2" height="'+(dh*.88)+'" fill="#b8924a"/>';
- if(s.led)p+='<rect x="'+(x+3)+'" y="'+(y+dh*.05)+'" width="3" height="'+(dh*.9)+'" fill="#ffd98f" filter="url(#lg'+u+')"/><rect x="'+(x+3)+'" y="'+(y+dh*.05)+'" width="2" height="'+(dh*.9)+'" fill="#fff3d0"/>';
+ if(s.led)p+='<rect x="'+(x+3)+'" y="'+(y+dh*.05)+'" width="3" height="'+(dh*.9)+'" fill="#ffd98f" filter="url(#lg'+u+')"><animate attributeName="opacity" values=".65;1;.65" dur="3s" repeatCount="indefinite"/></rect><rect x="'+(x+3)+'" y="'+(y+dh*.05)+'" width="2" height="'+(dh*.9)+'" fill="#fff3d0"/>';
  var gx,gy,gw,gh;
  if(s.glass==="strip"){gw=dw*.16;gx=x+dw*.58;gy=y+dh*.08;gh=dh*.62}
  if(s.glass==="top"){gw=dw*.7;gx=x+dw*.15;gy=y+dh*.07;gh=dh*.2}
  if(s.glass==="full"){gw=dw-14;gx=x+7;gy=y+7;gh=dh-14}
  if(s.glass==="custom"){gw=Math.max(6,Math.min((s.gw||30)*k,dw-8));gh=Math.max(6,Math.min((s.gh||120)*k,dh-8));gx=x+Math.max(4,Math.min((s.gx||30)*k,dw-gw-4));gy=y+Math.max(4,Math.min((s.gy||40)*k,dh-gh-4))}
  if(gw){p+='<rect x="'+gx+'" y="'+gy+'" width="'+gw+'" height="'+gh+'" fill="url(#gl'+u+')" stroke="#222" stroke-width="'+(s.glass==="full"?4:2.5)+'"/>';
-  p+='<path d="M'+gx+' '+(gy+gh)+'L'+(gx+gw)+' '+gy+'" stroke="#fff" opacity=".35" stroke-width="'+Math.max(3,gw*.08)+'"/>';
+  p+='<path d="M'+gx+' '+(gy+gh)+'L'+(gx+gw)+' '+gy+'" stroke="#fff" opacity=".35" stroke-width="'+Math.max(3,gw*.08)+'"><animate attributeName="opacity" values=".25;.6;.25" dur="5s" repeatCount="indefinite"/></path><path d="M'+gx+' '+(gy+gh*.75)+'L'+(gx+gw*.6)+' '+gy+'" stroke="#fff" opacity=".25" stroke-width="'+Math.max(1.5,gw*.035)+'"/><rect x="'+gx+'" y="'+gy+'" width="'+gw+'" height="'+gh+'" fill="none" stroke="#000" stroke-opacity=".35"/>';
   if(s.glass==="full")for(var j=1;j<3;j++)p+='<rect x="'+gx+'" y="'+(gy+j*gh/3-1.2)+'" width="'+gw+'" height="2.4" fill="#222"/>'}
  var cu=s.hmode==="custom"||s.handle==="hidden",hx=x+dw-Math.max(16,dw*.12),hy=Math.max(y+12,Math.min(fl-12,fl-((cu&&s.hy)||105)*k)),hl=((cu&&s.hl)||{bar:T==="pivot"?90:60,lever:16,knob:5,hidden:30}[s.handle]||40)*k,ht=Math.max(2,((cu&&s.ht)||20)/10*k);
  if(T==="fold")hx=x+dw/2+8;
  if(T==="pivot"){hx=x+dw-14;p+='<path d="M'+(x+dw*.5)+' '+(y-4)+'V'+(fl)+'" stroke="'+hw+'" stroke-dasharray="3 4" opacity=".6"/><circle cx="'+(x+dw*.5)+'" cy="'+(y+2)+'" r="3.2" fill="'+hw+'"/><circle cx="'+(x+dw*.5)+'" cy="'+(fl-2)+'" r="3.2" fill="'+hw+'"/>'}
  if(s.hc==="custom"&&s.hcc)hw=s.hcc;else if(s.hc){HC.forEach(function(c){if(c[0]===s.hc)hw=c[2]})}
- if(s.handle==="bar")p+='<rect x="'+hx+'" y="'+(hy-hl/2)+'" width="'+ht+'" height="'+hl+'" rx="'+(ht/2)+'" fill="'+hw+'"/>';
+ p+='<g filter="url(#ds'+u+')">';if(s.handle==="bar")p+='<rect x="'+hx+'" y="'+(hy-hl/2)+'" width="'+ht+'" height="'+hl+'" rx="'+(ht/2)+'" fill="'+hw+'"/><rect x="'+(hx+ht*.2)+'" y="'+(hy-hl/2+3)+'" width="'+Math.max(.8,ht*.22)+'" height="'+(hl-6)+'" rx=".5" fill="#fff" opacity=".45"/>';
  if(s.handle==="lever")p+='<rect x="'+(hx-hl+ht)+'" y="'+(hy-ht/2)+'" width="'+hl+'" height="'+ht+'" rx="'+(ht/2)+'" fill="'+hw+'"/><circle cx="'+(hx+ht/2)+'" cy="'+hy+'" r="'+(ht*1.1+3)+'" fill="'+hw+'" stroke="#0003"/>';
  if(s.handle==="knob")p+='<circle cx="'+(hx+hl/2)+'" cy="'+hy+'" r="'+(hl/2)+'" fill="'+hw+'"/><circle cx="'+(hx+hl*.3)+'" cy="'+(hy-hl*.2)+'" r="'+(hl*.12)+'" fill="#fff" opacity=".6"/>';
- if(s.handle==="hidden")p+='<rect x="'+(hx+2)+'" y="'+(hy-hl/2)+'" width="'+Math.max(3.2,ht)+'" height="'+hl+'" rx="'+(Math.max(3.2,ht)/2)+'" fill="#000" opacity=".7"/>';
+ if(s.handle==="hidden")p+='<rect x="'+(hx+2)+'" y="'+(hy-hl/2)+'" width="'+Math.max(3.2,ht)+'" height="'+hl+'" rx="'+(Math.max(3.2,ht)/2)+'" fill="#000" opacity=".7"/>';p+='</g>';
  if(s.lock==="smart"){var ky=hy-(s.handle==="bar"?hl/2+30:44);if(ky<y+8)ky=y+8;
-  p+='<rect x="'+(hx-4)+'" y="'+ky+'" width="14" height="26" rx="2" fill="#15171a" stroke="'+hw+'" stroke-width=".8"/><circle cx="'+(hx+3)+'" cy="'+(ky+8)+'" r="1.6" fill="#7fe0a0"/><path d="M'+(hx-1)+' '+(ky+15)+'h8M'+(hx-1)+' '+(ky+20)+'h8" stroke="#8a8d92" stroke-width="1.4"/>'}
+  p+='<rect x="'+(hx-4)+'" y="'+ky+'" width="14" height="26" rx="2" fill="#15171a" stroke="'+hw+'" stroke-width=".8"/><circle cx="'+(hx+3)+'" cy="'+(ky+8)+'" r="1.6" fill="#7fe0a0"><animate attributeName="opacity" values="1;.2;1" dur="2.4s" repeatCount="indefinite"/></circle><path d="M'+(hx-1)+' '+(ky+15)+'h8M'+(hx-1)+' '+(ky+20)+'h8" stroke="#8a8d92" stroke-width="1.4"/>'}
  if(T==="fire")p+='<rect x="'+(x+dw*.12)+'" y="'+(y+dh*.1)+'" width="24" height="12" fill="#c0392b"/><text x="'+(x+dw*.12+12)+'" y="'+(y+dh*.1+9)+'" font-size="8" fill="#fff" text-anchor="middle" font-family="Arial">EI60</text>';
  if(s.cat==="entry")p+='<circle cx="'+(x+dw-16)+'" cy="'+(y+dh*.64)+'" r="4" fill="#0006" stroke="'+hw+'"/>';
+ if(OP&&tr&&T!=="slide"&&T!=="pocket")p+='<rect x="'+x+'" y="'+y+'" width="'+dw+'" height="'+dh+'" fill="#000" opacity="'+(OP*.3)+'"/>';p+='</g>';p+='<defs><linearGradient id="fg'+u+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><mask id="fm'+u+'" maskUnits="userSpaceOnUse" x="0" y="'+fl+'" width="280" height="30"><rect x="0" y="'+fl+'" width="280" height="30" fill="url(#fg'+u+')"/></mask></defs><g mask="url(#fm'+u+')" opacity=".17"><use href="#lf'+u+'" transform="translate(0 '+(2*fl)+') scale(1 -1)"/></g>';if(T!=="slide"&&T!=="pocket")p+='<rect x="'+(x-3)+'" y="'+(fl-1)+'" width="'+(DW0+6)+'" height="3" rx="1" fill="#9a9488"/>';
  if(T==="pocket")p+='<rect x="'+(x+dw)+'" y="'+(y-4)+'" width="'+(DW0-dw)+'" height="'+(dh+4)+'" '+(o.bg?'fill="#dcd5c8"':'style="fill:var(--wall)"')+' stroke="#888" stroke-dasharray="4 4" stroke-width="1"/>';
  if(o.fig){var fh=175*k,fx=14;p+='<g style="fill:var(--ink)" opacity=".25"><circle cx="'+(fx+fh*.1)+'" cy="'+(fl-fh+fh*.06)+'" r="'+(fh*.06)+'"/><rect x="'+fx+'" y="'+(fl-fh+fh*.14)+'" width="'+(fh*.2)+'" height="'+(fh*.86)+'" rx="'+(fh*.07)+'"/></g>'}
  LEAF={x:x,y:y,w:dw,h:dh};return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 400" role="img" aria-label="דלת '+nm(TYPES,s.type)+' '+nm(MATS,s.mat)+'">'+p+'</svg>'}
@@ -384,7 +393,7 @@ function panel(){S=Object.assign({},DEFX,S);if(!S.dr)S.dr=[];
  if(n<6)h+='<div class="nav"><div class="acts"><button type="button" class="btn alt" id="back"'+(n?"":" disabled")+'>הקודם</button><button type="button" class="btn alt" id="dice">🎲 הפתיעו אותי</button></div><button type="button" class="btn" id="next">'+(n===5?"לדלת שלי":"הבא")+'</button></div>';
  else if(n===6)h+='<div class="nav"><div class="acts"><button type="button" class="btn alt" id="back">חזרה לעריכה</button><button type="button" class="btn alt" id="dice">🎲 הדלת הבאה</button></div><button type="button" class="btn" id="next">המשך: הפרטים שלך</button></div>';else h+='<div class="nav"><button type="button" class="btn alt" id="back">חזרה לסיכום</button></div>';
  $("wiz").innerHTML=h;bind();
- $("view").innerHTML=door(S,{id:"m",fig:1});upd()}
+ $("view").innerHTML=door(S,{id:"m",fig:1,open:OPEN});upd()}
 function upd(){var sc=score(S);$("ring").style.setProperty("--p",sc);$("score").textContent=sc;$("dname").textContent=title(S)}
 function final(){var a=stats(S),L=["עמידות","בידוד קול","עיצוב","ביטחון"],t=tier(S),b=badges(S);
  var h='<h2>'+title(S)+'</h2><p class="sub">מד חלומות '+score(S)+' מתוך 100</p><div class="bars">'+L.map(function(l,i){return '<div class="bar"><span>'+l+'</span><div><i style="width:'+a[i]*10+'%"></i></div><b>'+a[i]+'</b></div>'}).join("")+'</div>';
@@ -410,7 +419,7 @@ function bind(){
  e=w.querySelectorAll("[data-k]");for(i=0;i<e.length;i++)e[i].onclick=function(){var k=this.dataset.k,v=this.dataset.v;S[k]=/^(w|h|dtk)$/.test(k)?+v:v;if(k==="handle")S.hl=null;if(k==="hmode"&&v==="stock"&&S.hc==="custom")S.hc="nickel";
   if(k==="cat"){var L2=v==="entry"?ENT:INT;if(L2.indexOf(S.type)<0)S.type=L2[0];if(v!=="entry"){if(S.clad==="powder"){S.clad="none";S.fin="custom";S.cc="#efece6"}S.led=false;S.hmode="stock";if(["black","nickel","gold"].indexOf(S.hc)<0)S.hc="nickel"}}
   if(k==="clad")pickFin(v);
-  if(k==="type"&&v==="pivot"&&S.w<100)S.w=100;if(k==="type"&&v==="pivot"&&S.h<240)S.h=240;panel();if(k==="eng"&&v==="draw")openDraw()};
+  if(k==="type"&&v==="pivot"&&S.w<100)S.w=100;if(k==="type"||k==="cat"){OPEN=0;$("opn").textContent="▶ איך הדלת נפתחת"}if(k==="type"&&v==="pivot"&&S.h<240)S.h=240;panel();if(k==="eng"&&v==="draw")openDraw()};
  e=w.querySelectorAll("[data-t]");for(i=0;i<e.length;i++)e[i].onclick=function(){S[this.dataset.t]=!S[this.dataset.t];panel()};
  e=w.querySelectorAll("[data-s]");for(i=0;i<e.length;i++)e[i].onclick=function(){step=+this.dataset.s;panel()};
  var nx=$("next"),bk=$("back"),dc=$("dice");
@@ -472,12 +481,25 @@ var MODELS=[
 {n:"נעלמת",t:"פנים",s:{cat:"int",type:"pocket",mat:"poly",clad:"hplg",fin:"custom",cc:"#f1ede4",glass:"none",line:false,led:false,eng:"none",handle:"hidden",lock:"std",w:92,h:240},d:"דלת כיס שנכנסת לקיר"},
 {n:"אקורדיון",t:"פנים",s:{cat:"int",type:"fold",mat:"poly",clad:"hpl",fin:"custom",cc:"#d9c9ab",glass:"none",line:false,led:false,eng:"none",handle:"bar",lock:"std",w:108,h:210},d:"דלת מתקפלת חוסכת מקום"},
 {n:"מים",t:"פנים",s:{cat:"int",type:"regular",mat:"poly",clad:"none",fin:"custom",cc:"#cdbd9f",glass:"none",line:false,led:false,eng:"diag",handle:"knob",lock:"std",w:82,h:210},d:"פולימרי לחדרי רחצה"}];
-var cat="הכל";
+var cat="הכל";var OPEN=0,GT={id:0};
+function run(from,to,draw,done,tok){tok=tok||GT;cancelAnimationFrame(tok.id);var t0=null;function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/1000),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;draw(from+(to-from)*e);if(k<1)tok.id=requestAnimationFrame(f);else if(done)done()}tok.id=requestAnimationFrame(f)}
+function toggleOpen(){var to=OPEN<.5?1:0,from=OPEN;$("opn").textContent=to?"◀ סגירה":"▶ איך הדלת נפתחת";run(from,to,function(v){OPEN=v;$("view").innerHTML=door(S,{id:"m",fig:1,open:v})})}
+
+function mcard(m,i,pre,btn){var o=ST.mo[m.n]||{},im=ST.modelimg[m.n],nme=o.n||m.n,dsc=o.d||m.d,ce=EDIT?' contenteditable="true" data-mk="'+i+'"':"";
+ return '<article class="card"><div class="pic'+(im?" mph":"")+'">'+(im?'<img src="'+esc(im.u||"/_blob/"+im.id)+'" alt="'+esc(nme)+'">':door(m.s,{id:pre+i}))+'</div><div class="txt"><h3'+ce+' data-f="n">'+esc(nme)+'</h3><p>'+nm(TYPES,m.s.type)+' · '+nm(MATS,m.s.mat)+'</p><p'+ce+' data-f="d">'+esc(dsc)+'</p>'
+ +(EDIT?'<div class="acts" style="margin:6px 0"><label class="btn alt up">📷 החלפת תמונה<input type="file" accept="image/*" data-mi="'+i+'" hidden></label>'+(im?'<button type="button" class="x" data-mx="'+i+'">חזרה לציור</button>':"")+'</div>':"")
+ +'<div style="margin-top:auto;display:flex;gap:18px;flex-wrap:wrap">'+(im?"":'<button type="button" data-op="'+i+'" data-pre="'+pre+'">▶ איך נפתחת</button>')+'<button type="button" '+btn+'="'+i+'">עיצוב אישי</button></div></div></article>'}
+function mbind(root){if(!EDIT)return;var q=root.querySelectorAll("[data-mi]"),i;
+ for(i=0;i<q.length;i++)q[i].onchange=function(){var f=this.files[0],m=MODELS[+this.dataset.mi];if(!f)return;toast("מעלה תמונה...");ready(f,1000).then(function(r){return AS.upload(r.blob,{type:r.blob.type||"image/jpeg"})}).then(function(a){ST.modelimg[m.n]={id:a.id,u:a.url};mark();remod();toast("התמונה הוחלפה. לחצו שמירה ופרסום")},function(){toast("העלאת התמונה נכשלה")})};
+ q=root.querySelectorAll("[data-mx]");for(i=0;i<q.length;i++)q[i].onclick=function(){delete ST.modelimg[MODELS[+this.dataset.mx].n];mark();remod()};
+ q=root.querySelectorAll("[data-mk]");for(i=0;i<q.length;i++)q[i].oninput=function(){var m=MODELS[+this.dataset.mk],o=ST.mo[m.n]=ST.mo[m.n]||{};o[this.dataset.f]=this.textContent;mark()}}
+function remod(){gal();if(!$("v-page").hidden)rp()}
+
 function gal(){var C=["הכל","כניסה","פנים"];
  $("cats").innerHTML=C.map(function(c){return '<button type="button" data-c="'+c+'" aria-pressed="'+(cat===c)+'">'+c+'</button>'}).join("");
  var g="";MODELS.forEach(function(m,i){if(cat!=="הכל"&&m.t!==cat)return;
-  g+='<article class="card"><div class="pic">'+door(m.s,{id:"g"+i})+'</div><div class="txt"><h3>'+m.n+'</h3><p>'+nm(TYPES,m.s.type)+' · '+nm(MATS,m.s.mat)+'</p><p>'+m.d+'</p><button type="button" data-m="'+i+'">עיצוב אישי</button></div></article>'});
- $("grid").innerHTML=g;
+  g+=mcard(m,i,"g","data-m")});
+ $("grid").innerHTML=g;mbind($("grid"));
  var a=$("cats").querySelectorAll("button"),i;for(i=0;i<a.length;i++)a[i].onclick=function(){cat=this.dataset.c;gal()};
  a=$("grid").querySelectorAll("[data-m]");for(i=0;i<a.length;i++)a[i].onclick=function(){S=JSON.parse(JSON.stringify(MODELS[+this.dataset.m].s));if(!S.clad)S.clad="none";step=3;panel();nav("build")}}
 
@@ -494,11 +516,31 @@ function ready(f,max){return prep(f,max).then(function(r){return r},function(e){
 function avg(cv){var t=document.createElement("canvas");t.width=t.height=8;var c=t.getContext("2d");c.drawImage(cv,0,0,8,8);var d=c.getImageData(0,0,8,8).data,r=0,g=0,b=0,n=0,i;for(i=0;i<d.length;i+=4){r+=d[i];g+=d[i+1];b+=d[i+2];n++}return "#"+[r,g,b].map(function(v){return ("0"+Math.round(v/n).toString(16)).slice(-2)}).join("")}
 function addColor(){var n=$("an").value.trim(),k=$("ak").value.trim(),hx=$("ah").value,f=$("af").files[0],cl=$("acl")?$("acl").value:S.clad;if(!n&&!k){toast("נא להזין שם או קוד לגוון");return}
  function done(img){var id="c"+Date.now().toString(36);ST.colors.push({id:id,cl:cl,name:n,code:k,hex:hx,img:img||""});if($("acl")){mark();rp()}else{S.fin=id;mark();panel()}toast("הגוון נוסף. לחצו שמירה ופרסום")}
- if(!f){done("");return}toast("מעלה תמונה...");ready(f,600).then(function(r){return AS.upload(r.blob,{type:r.blob.type||"image/jpeg"})}).then(function(a){done("/_blob/"+a.id)},function(){toast("העלאת התמונה נכשלה")})}
+ if(!f){done("");return}toast("מעלה תמונה...");ready(f,600).then(function(r){return AS.upload(r.blob,{type:r.blob.type||"image/jpeg"})}).then(function(a){done(a.url)},function(){toast("העלאת התמונה נכשלה")})}
 function mark(){$("admin").hidden=false;$("adst").textContent="יש שינויים שלא פורסמו"}
 function html(){return '<!DOCTYPE html>\n<html lang="he" dir="rtl"><head>'+HEAD+'<style id="css">'+$("css").textContent+'</style></head><body><template id="skel">'+$("skel").innerHTML+'</template><script id="state" type="application/json">'+JSON.stringify(ST,function(k,v){return k==="u"?undefined:v}).replace(/</g,"\\u003c")+'<\/script><script id="app">'+$("app").textContent+'<\/script></body></html>'}
-function saveAll(){if(!AR)return;$("asave").disabled=true;toast("מפרסם...");try{sessionStorage.setItem("dl-hash",location.hash)}catch(x){}AR.publish(html()).then(function(){toast("נשמר ופורסם")},function(e){$("asave").disabled=false;var c=(e&&e.code)||"",m=c==="conflict"?"הדף עודכן במקום אחר ויטען מחדש":(c==="not_writer"||c==="not_granted"||c==="capability_disabled")?"אין הרשאה לפרסם מכאן. פתחו את הדף מהחשבון שלכם כבעלים":c==="too_large"?"הדף גדול מדי, מחקו כמה תמונות":"השמירה נכשלה ("+(c||"שגיאה")+")";$("adst").textContent=m;toast(m)})}
-function initAdmin(){try{if(!(window.claude&&claude.use))return;Promise.all([claude.use("user"),claude.use("assets"),claude.use("artifact")]).then(function(a){AS=a[1];AR=a[2];if(!a[0]||!AS||!AR)return;a[0].canEdit().then(function(ok){if(!ok)return;EDIT=true;$("admin").hidden=false;$("adst").textContent="מצב עריכה: רק את/ה רואה את זה";$("asave").onclick=saveAll;panel();if(!$("v-page").hidden)rp()})})}catch(e){}}
+function saveAll(){if(!AR)return;$("asave").disabled=true;toast("מפרסם...");try{sessionStorage.setItem("dl-hash",location.hash)}catch(x){}AR.publish().then(function(){$("asave").disabled=false;$("adst").textContent="נשמר. האתר יתעדכן בעוד כדקה";toast("נשמר. האתר יתעדכן בעוד כדקה")},function(e){$("asave").disabled=false;var c=(e&&e.code)||"",m=c==="conflict"?"הדף עודכן במקום אחר ויטען מחדש":(c==="not_writer"||c==="not_granted"||c==="capability_disabled")?"אין הרשאה לפרסם מכאן. פתחו את הדף מהחשבון שלכם כבעלים":c==="too_large"?"הדף גדול מדי, מחקו כמה תמונות":"השמירה נכשלה ("+(c||"שגיאה")+")";$("adst").textContent=m;toast(m)})}
+var EMB={"s": "Qgt4/PeG1WKCLyNS61VY4A==", "i": "8QJNLFut0pM3Sqb7", "d": "uDoGcbY6Vw3DzW6ETdN/3NStQwru/VBeIdZlzhR9IJD7Djo2sgmofNABXmfzv1Wh8YCjktrNi1/BjJzaJndUHwPZpUON0f/CgibSsG6V1NSWohPkv6fMvsHZa2QvcMifX0htqYI/mpeDuj3/lA=="},TOK="",DM={};
+function enc(t){return btoa(unescape(encodeURIComponent(t)))}
+function ub(t){return Uint8Array.from(atob(t),function(c){return c.charCodeAt(0)})}
+function ghapi(p,o){o=o||{};o.headers={Authorization:"Bearer "+TOK,Accept:"application/vnd.github+json"};return fetch("https://api.github.com/repos/remaabutaref/doorsline/contents/"+p+(o.method?"":"?ref=main&t="+Date.now()),o).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.message||r.status);return j})})}
+function ghput(p,b,sha,m){return ghapi(p,{method:"PUT",body:JSON.stringify({message:m,content:b,branch:"main",sha:sha||undefined})})}
+var TXS=[".hero h1",".hero p","#usp span:nth-child(1)","#usp span:nth-child(2)","#usp span:nth-child(3)",".kinds>div:nth-child(1) h3",".kinds>div:nth-child(1) p",".kinds>div:nth-child(2) h3",".kinds>div:nth-child(2) p",".kinds .all",".why div:nth-child(1) h3",".why div:nth-child(1) p",".why div:nth-child(2) h3",".why div:nth-child(2) p",".why div:nth-child(3) h3",".why div:nth-child(3) p",".csub",".fine"];
+function initAdmin(){if(!/[?&]admin/.test(location.search))return;
+ var ov=document.createElement("div");ov.style.cssText="position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.6);display:grid;place-items:center";
+ ov.innerHTML='<div style="background:#f8f6f1;color:#17191c;padding:24px;border-radius:8px;text-align:center;width:min(320px,90%)"><h3 style="margin:0 0 10px;font-family:Heebo,sans-serif">כניסת מנהל</h3><input id="pin" type="password" inputmode="numeric" maxlength="6" placeholder="קוד 6 ספרות" style="font:inherit;padding:10px;width:100%;box-sizing:border-box;text-align:center;font-size:22px;letter-spacing:.3em"><p id="pe" style="color:#b5382c;margin:8px 0;min-height:1.2em"></p><button type="button" class="btn" id="pgo">כניסה</button></div>';
+ document.body.appendChild(ov);$("pin").focus();
+ function go(){$("pe").textContent="בודק...";crypto.subtle.importKey("raw",new TextEncoder().encode($("pin").value),"PBKDF2",false,["deriveKey"]).then(function(m){return crypto.subtle.deriveKey({name:"PBKDF2",salt:ub(EMB.s),iterations:300000,hash:"SHA-256"},m,{name:"AES-GCM",length:256},false,["decrypt"])}).then(function(k){return crypto.subtle.decrypt({name:"AES-GCM",iv:ub(EMB.i)},k,ub(EMB.d))}).then(function(b){ov.remove();start(new TextDecoder().decode(b))},function(){$("pe").textContent="קוד שגוי"})}
+ $("pgo").onclick=go;$("pin").onkeydown=function(e){if(e.key==="Enter")go()}}
+function start(tok){TOK=tok;ST.texts=ST.texts||{};ST.cfg=ST.cfg||{};
+ AS={upload:function(blob){return new Promise(function(res,rej){var fr=new FileReader();fr.onerror=rej;fr.onload=function(){var u=fr.result,p="images/"+Date.now().toString(36)+Math.random().toString(36).slice(2,6)+".jpg";ghput(p,u.split(",")[1],null,"תמונה חדשה").then(function(){DM[u]=p;res({id:p,url:u})},rej)};fr.readAsDataURL(blob)})}};
+ AR={publish:function(){var js=JSON.stringify(ST,function(k,v){return typeof v==="string"&&DM[v]?DM[v]:v});return ghapi("content.json").catch(function(){return{}}).then(function(j){return ghput("content.json",enc(js),j.sha,"עדכון מהאתר")}).catch(function(e){throw{code:e.message||"שגיאה"}})}};
+ EDIT=true;var st=document.createElement("style");st.textContent=".ed [contenteditable]{outline:2px dashed #9a7638;outline-offset:3px;cursor:text}";document.head.appendChild(st);document.body.classList.add("ed");
+ TXS.forEach(function(sel){var e=document.querySelector(sel);if(!e)return;e.contentEditable="true";e.oninput=function(){ST.texts[sel]=e.textContent;mark()}});
+ var cb=document.createElement("button");cb.type="button";cb.className="btn alt";cb.textContent="פרטי קשר";cb.style.cssText="color:#fff;border-color:#fff";
+ cb.onclick=function(){[["phone","טלפון"],["wa","וואטסאפ (972...)"],["mail","מייל"],["addr","כתובת / שעות"]].forEach(function(q){var v=prompt(q[1],CFG[q[0]]);if(v!==null){CFG[q[0]]=v;ST.cfg[q[0]]=v}});$("c-tel").textContent=CFG.phone;$("c-tel").href="tel:"+CFG.phone.replace(/-/g,"");$("c-wa").href="https://wa.me/"+CFG.wa+"?text="+encodeURIComponent("שלום, אשמח לקבל פרטים על דלתות");mark()};
+ $("admin").insertBefore(cb,$("asave"));$("admin").hidden=false;$("adst").textContent="מצב עריכה";$("asave").onclick=saveAll;panel();route();
+ toast("מצב עריכה: לחצו על טקסט כדי לשנות. לתמונות ולגוונים היכנסו לדפי הדלתות, הידיות והחיפויים")}
 var PG="entry";
 function cladCards(){return '<div class="cards">'+CLADS.filter(function(c){return c[0]!=="powder"||S.cat==="entry"}).map(function(a){var im=ST.cladimg[a[0]];return '<button type="button" class="opt" data-k="clad" data-v="'+a[0]+'" aria-pressed="'+(S.clad===a[0])+'">'+(im?'<img class="ci" src="'+(im.u||"/_blob/"+im.id)+'" alt="">':"")+'<b>'+a[1]+'</b><small>'+a[2]+'</small></button>'}).join("")+'</div>'}
 function cladHTML(){var h="",list=CLADS.filter(function(c){return c[0]!=="none"});
@@ -515,8 +557,8 @@ function rp(){var e=PG==="entry",G=ST.gallery[PG]||[],cat=e?"entry":"int";
  if(EDIT)h+='<div class="adm"><label class="btn gold up">📷 העלאת תמונות מהטלפון<input type="file" id="gup" accept="image/*" multiple hidden></label><span class="sub"> אחרי ההעלאה לחצו שמירה ופרסום.</span></div>';
  h+=G.length?'<div class="ph">'+G.map(function(g,i){return '<figure><img src="'+(g.u||"/_blob/"+g.id)+'" alt="'+esc(g.cap||"")+'" loading="lazy" data-lb="'+g.id+'">'+(EDIT?'<input class="cap" data-cap="'+i+'" value="'+esc(g.cap||"")+'" placeholder="כיתוב"><button type="button" class="x" data-gd="'+i+'">מחיקה</button>':(g.cap?'<figcaption>'+esc(g.cap)+'</figcaption>':""))+'</figure>'}).join("")+'</div>':'<p class="sub">התמונות יתווספו בקרוב.</p>';
  if(door2)h+='<h2 class="sec" style="margin-top:44px">דגמים להמחשה</h2><div class="grid">';
- if(door2)MODELS.forEach(function(m,i){if(m.s.cat!==cat)return;h+='<article class="card"><div class="pic">'+door(m.s,{id:"p"+i})+'</div><div class="txt"><h3>'+m.n+'</h3><p>'+nm(TYPES,m.s.type)+' · '+nm(MATS,m.s.mat)+'</p><p>'+m.d+'</p><button type="button" data-pm="'+i+'">עיצוב אישי</button></div></article>'});
- $("pg").innerHTML=h+(door2?'</div>':"");
+ if(door2)MODELS.forEach(function(m,i){if(m.s.cat!==cat)return;h+=mcard(m,i,"p","data-pm")});
+ $("pg").innerHTML=h+(door2?'</div>':"");mbind($("pg"));
  var q=$("pg").querySelectorAll("[data-pm]"),i;for(i=0;i<q.length;i++)q[i].onclick=function(){S=JSON.parse(JSON.stringify(MODELS[+this.dataset.pm].s));if(!S.clad)S.clad="none";step=3;panel();nav("build")};
  q=$("pg").querySelectorAll("[data-lb]");for(i=0;i<q.length;i++){q[i].onclick=function(){$("lbi").src=this.src;$("lb").hidden=false};q[i].onerror=function(){var im=this;if(!im.dataset.fb){im.dataset.fb=1;try{fetch(im.getAttribute("src")).then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(b){var fr=new FileReader();fr.onload=function(){im.src=fr.result};fr.readAsDataURL(b)}).catch(function(){im.alt="לא ניתן לטעון את התמונה";im.style.minHeight="140px"})}catch(x){}return}this.alt="לא ניתן לטעון את התמונה";this.style.minHeight="140px";if(EDIT){$("adst").textContent="תמונה לא נטענה: נסו לשמור ולפתוח מחדש";$("admin").hidden=false}}}
  q=$("pg").querySelectorAll("[data-cap]");for(i=0;i<q.length;i++)q[i].oninput=function(){ST.gallery[PG][+this.dataset.cap].cap=this.value;mark()};
@@ -530,7 +572,7 @@ function rp(){var e=PG==="entry",G=ST.gallery[PG]||[],cat=e?"entry":"int";
 function route(){var h=location.hash.slice(1),pg=["entry","interior","handles","cladding"].indexOf(h)>-1;
  $("v-home").hidden=pg;$("v-page").hidden=!pg;
  if(pg){PG=h;rp();window.scrollTo(0,0)}else if(h){var e=document.getElementById(h);if(e)e.scrollIntoView()}else window.scrollTo(0,0)}
-function vw(){$("view").innerHTML=door(S,{id:"m",fig:1});upd()}
+function vw(){$("view").innerHTML=door(S,{id:"m",fig:1,open:OPEN});upd()}
 function rng(id,l,mn,mx,v){return '<div class="grp"><h3>'+l+': <b id="v-'+id+'">'+v+'</b></h3><input type="range" id="'+id+'" min="'+mn+'" max="'+mx+'" value="'+v+'" style="width:100%"></div>'}
 function hdef(){return {bar:S.type==="pivot"?90:60,lever:16,knob:5,hidden:30}[S.handle]}
 var HCN={custom:"צבע אישי"};HC.forEach(function(c){HCN[c[0]]=c[1]});
@@ -560,7 +602,10 @@ function startCat(c){S.cat=c;if(c!=="entry"){if(S.clad==="powder"){S.clad="none"
 /* ---------- init ---------- */
 $("c-tel").textContent=CFG.phone;$("c-tel").href="tel:"+CFG.phone.replace(/-/g,"");
 $("c-wa").href="https://wa.me/"+CFG.wa+"?text="+encodeURIComponent("שלום, אשמח לקבל פרטים על דלתות");
-panel();gal();try{var savedHash=sessionStorage.getItem("dl-hash");if(savedHash&&!location.hash){sessionStorage.removeItem("dl-hash");location.hash=savedHash.replace("#","")}}catch(x){}route();window.addEventListener("hashchange",route);document.addEventListener("click",function(e){var q=e.target.closest&&e.target.closest("[data-sc]");if(q)startCat(q.dataset.sc)});$("lb").onclick=function(){this.hidden=true};initAdmin();
+panel();gal();try{var savedHash=sessionStorage.getItem("dl-hash");if(savedHash&&!location.hash){sessionStorage.removeItem("dl-hash");location.hash=savedHash.replace("#","")}}catch(x){}route();window.addEventListener("hashchange",route);document.addEventListener("click",function(e){var q=e.target.closest&&e.target.closest("[data-sc]");if(q)startCat(q.dataset.sc)});$("lb").onclick=function(){this.hidden=true};$("opn").onclick=toggleOpen;function cardAnim(pic,m,pre,to){pic._tg=to;run(pic._v||0,to,function(v){pic._v=v;pic.innerHTML=door(m.s,{id:pre,open:v})},null,pic._t=pic._t||{id:0})}
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-op]");if(!b)return;var pic=b.closest(".card").querySelector(".pic"),to=pic._o?0:1;pic._o=to;b.textContent=to?"◀ סגירה":"▶ איך נפתחת";cardAnim(pic,MODELS[+b.dataset.op],b.dataset.pre+b.dataset.op,to)});
+function hv(e,to){var pic=e.target.closest&&e.target.closest(".card .pic");if(!pic||pic.classList.contains("mph")||pic._o||(pic._tg||0)===to||(e.relatedTarget&&pic.contains(e.relatedTarget)))return;var b=pic.closest(".card").querySelector("[data-op]");if(b)cardAnim(pic,MODELS[+b.dataset.op],b.dataset.pre+b.dataset.op,to)}
+document.addEventListener("mouseover",function(e){hv(e,.16)});document.addEventListener("mouseout",function(e){hv(e,0)});initAdmin();
 try{if(window.claude&&claude.use)claude.use("downloads").then(function(d){DL=d||false;if(!d&&step===6)panel()},function(){DL=false})}catch(e){DL=false}
 
 </script></body></html>
