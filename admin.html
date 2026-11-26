@@ -522,7 +522,7 @@ function gal(){var C=["הכל","כניסה","פנים"];
  if(EDIT){var cd=$("cadm");cd.innerHTML='<div class="adm"><h3>ניהול הקטלוג</h3><div class="acts"><button type="button" class="btn gold" data-a="add">➕ הוספת דגם</button><button type="button" class="btn alt" data-a="lo">✎ טקסט הכפתור: '+esc(LBL.op)+'</button><button type="button" class="btn alt" data-a="lp">✎ טקסט הכפתור: '+esc(LBL.pm)+'</button></div>'+(HID.length?'<p class="sub" style="margin:10px 0 0">דגמים שנמחקו (לחצו לשחזור): '+HID.map(function(h){return '<button type="button" class="pl" data-rs="'+esc(h.n)+'">↩ '+esc((ST.mo[h.n]||{}).n||h.n)+'</button>'}).join(" ")+'</p>':"")+'</div>';
   cd.onclick=function(e){var t=e.target.closest("button");if(!t)return;if(t.dataset.a==="add")addDlg();else if(t.dataset.a==="lo")lblDlg("op","▶ איך נפתחת");else if(t.dataset.a==="lp")lblDlg("pm","עיצוב אישי");else if(t.dataset.rs){ST.hid=ST.hid.filter(function(x){return x!==t.dataset.rs});buildModels();mark();remod()}}}
  var a=$("cats").querySelectorAll("button"),i;for(i=0;i<a.length;i++)a[i].onclick=function(){cat=this.dataset.c;gal()};
- a=$("grid").querySelectorAll("[data-m]");for(i=0;i<a.length;i++)a[i].onclick=function(){S=JSON.parse(JSON.stringify(MODELS[+this.dataset.m].s));if(!S.clad)S.clad="none";step=3;panel();nav("build")}}
+ a=$("grid").querySelectorAll("[data-m]");for(i=0;i<a.length;i++)a[i].onclick=function(){fromModel(+this.dataset.m)}}
 
 var EDIT=false,AS=null,AR=null,LEAF={x:0,y:0,w:1,h:1};
 function nav(id){if(location.hash.slice(1)===id)route();else location.hash=id}
@@ -565,7 +565,7 @@ function rp(){var e=PG==="entry",G=ST.gallery[PG]||[],cat=e?"entry":"int";
  if(door2)h+='<h2 class="sec" style="margin-top:44px"'+A("sec.models","כותרת","דגמים להמחשה")+'>'+esc(P("sec.models","דגמים להמחשה"))+'</h2><div class="grid">';
  if(door2)MODELS.forEach(function(m,i){if(m.s.cat!==cat)return;h+=mcard(m,i,"p","data-pm")});
  $("pg").innerHTML=h+(door2?'</div>':"");mbind($("pg"));
- var q=$("pg").querySelectorAll("[data-pm]"),i;for(i=0;i<q.length;i++)q[i].onclick=function(){S=JSON.parse(JSON.stringify(MODELS[+this.dataset.pm].s));if(!S.clad)S.clad="none";step=3;panel();nav("build")};
+ var q=$("pg").querySelectorAll("[data-pm]"),i;for(i=0;i<q.length;i++)q[i].onclick=function(){fromModel(+this.dataset.pm)};
  q=$("pg").querySelectorAll("[data-lb]");for(i=0;i<q.length;i++){q[i].onclick=function(){$("lbi").src=this.src;$("lb").hidden=false};q[i].onerror=function(){var im=this;if(!im.dataset.fb){im.dataset.fb=1;try{fetch(im.getAttribute("src")).then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(b){var fr=new FileReader();fr.onload=function(){im.src=fr.result};fr.readAsDataURL(b)}).catch(function(){im.alt="לא ניתן לטעון את התמונה";im.style.minHeight="140px"})}catch(x){}return}this.alt="לא ניתן לטעון את התמונה";this.style.minHeight="140px";if(EDIT){$("adst").textContent="תמונה לא נטענה: נסו לשמור ולפתוח מחדש";$("admin").hidden=false}}}
  q=$("pg").querySelectorAll("[data-cap]");for(i=0;i<q.length;i++)q[i].oninput=function(){ST.gallery[PG][+this.dataset.cap].cap=this.value;mark()};
  q=$("pg").querySelectorAll("[data-gd]");for(i=0;i<q.length;i++)q[i].onclick=function(){ST.gallery[PG].splice(+this.dataset.gd,1);mark();rp()};
@@ -578,7 +578,9 @@ function rp(){var e=PG==="entry",G=ST.gallery[PG]||[],cat=e?"entry":"int";
 function route(){var h=location.hash.slice(1),pg=["entry","interior","handles","cladding"].indexOf(h)>-1;
  $("v-home").hidden=pg;$("v-page").hidden=!pg;
  if(pg){PG=h;rp();window.scrollTo(0,0)}else if(h){var e=document.getElementById(h);if(e)e.scrollIntoView()}else window.scrollTo(0,0)}
-function vw(){$("view").innerHTML=door(S,{id:"m",fig:1,open:OPEN});upd()}
+var PH=null;
+function fromModel(i){var m=MODELS[i],im=ST.modelimg[m.n];S=JSON.parse(JSON.stringify(m.s));if(!S.clad)S.clad="none";PH=im?{src:im.u||"/_blob/"+im.id,sig:null}:null;OPEN=0;step=3;panel();vw();nav("build")}
+function vw(){var o=$("opn");if(PH){var g=JSON.stringify(S);if(PH.sig===null)PH.sig=g;if(g===PH.sig){$("view").innerHTML='<div style="width:100%;max-width:340px"><img src="'+esc(PH.src)+'" alt="" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;border-radius:3px 3px 0 0"><p style="margin:0;padding:8px 6px 10px;font-size:13px;color:var(--mute)">זו התמונה של הדגם. כל שינוי שתבחרו יוצג כהדמיה.</p></div>';if(o)o.style.display="none";upd();return}PH=null}if(o)o.style.display="";$("view").innerHTML=door(S,{id:"m",fig:1,open:OPEN});upd()}
 function rng(id,l,mn,mx,v){return '<div class="grp"><h3>'+l+': <b id="v-'+id+'">'+v+'</b></h3><input type="range" id="'+id+'" min="'+mn+'" max="'+mx+'" value="'+v+'" style="width:100%"></div>'}
 function hdef(){return {bar:S.type==="pivot"?90:60,lever:16,knob:5,hidden:30}[S.handle]}
 var HCN={custom:"צבע אישי"};HC.forEach(function(c){HCN[c[0]]=c[1]});
@@ -604,7 +606,7 @@ function openDraw(){var ov=document.createElement("div");ov.id="dz";
  $("dzu").onclick=function(){S.dr.pop();draw()};$("dzc").onclick=function(){S.dr=[];draw()};
  function close(){window.removeEventListener("resize",fit);ov.remove();document.body.style.overflow="";panel()}
  $("dzx").onclick=close;window.addEventListener("resize",fit);fit();draw()}
-function startCat(c){S.cat=c;S.mat=c==="entry"?"steel":"poly";if(c!=="entry"){if(S.clad==="powder"){S.clad="none";S.fin="custom";S.cc="#efece6"}S.led=false;S.hmode="stock";if(["black","nickel","gold"].indexOf(S.hc)<0)S.hc="nickel"}var L=c==="entry"?ENT:INT;if(L.indexOf(S.type)<0)S.type=L[0];step=0;panel();nav("build")}
+function startCat(c){PH=null;S.cat=c;S.mat=c==="entry"?"steel":"poly";if(c!=="entry"){if(S.clad==="powder"){S.clad="none";S.fin="custom";S.cc="#efece6"}S.led=false;S.hmode="stock";if(["black","nickel","gold"].indexOf(S.hc)<0)S.hc="nickel"}var L=c==="entry"?ENT:INT;if(L.indexOf(S.type)<0)S.type=L[0];step=0;panel();nav("build")}
 /* ---------- init ---------- */
 $("c-tel").textContent=CFG.phone;$("c-tel").href="tel:"+CFG.phone.replace(/-/g,"");if(CFG.waze)$("c-waze").href=CFG.waze;
 $("c-wa").href="https://wa.me/"+CFG.wa+"?text="+encodeURIComponent("שלום, אשמח לקבל פרטים על דלתות");
